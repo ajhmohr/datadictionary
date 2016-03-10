@@ -12,9 +12,10 @@
 #' DataDictionary()
 
 
-DataDictionary <- function(x, variable_labels, value_labels) {
+DataDictionary <- function(x, variable_labels, value_labels, file="DataDictionary.txt") {
   value_labels <- as.list(value_labels)
   datatable <- as.data.frame(variable_labels)
+  
   
   #initialize an empty tab-separated textfile to write the metadata to
   cat("\n", file=file, sep="\t")
