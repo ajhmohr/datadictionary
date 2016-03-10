@@ -4,7 +4,7 @@
 \alias{DataDictionary}
 \title{A Data Dictionary Function}
 \usage{
-DataDictionary(x, variable_labels, value_labels)
+DataDictionary(x, variable_labels, value_labels, file = "DataDictionary.txt")
 }
 \arguments{
 \item{x}{A dataframe}
