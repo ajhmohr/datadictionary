@@ -9,10 +9,7 @@
 #' @keywords data dictionary
 #' @keywords metadata
 #' @export
-#' @examples iris #Create a data dictionary for iris dataset
-#' @examples varlab = c("Length of Sepal in centimeters", "Width of Sepal in centimeters", "Length of petal in centimeters", "Width of Petal in centimeters", "Species of iris")
-#' @examples vallab = c(rep("", ncol(iris)))
-#' @examples DataDictionary(iris, variable_labels = varlab, value_labels=vallab, include.summary = TRUE)
+#' @examples iris #Create a data dictionary for iris dataset; varlab = c("Length of Sepal in centimeters", "Width of Sepal in centimeters", "Length of petal in centimeters", "Width of Petal in centimeters", "Species of iris"); vallab = c(rep("", ncol(iris))); DataDictionary(iris, variable_labels = varlab, value_labels=vallab, include.summary = TRUE)
 #' DataDictionary()
 
 
