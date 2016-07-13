@@ -1,0 +1,14 @@
+Package: datadictionary
+Title: Create TXT Data Dictionary from R Data Attributes
+Version: 0.0.0.9000
+Authors@R: person("Alicia", "Hofelich Mohr", email = "hofelich@umn.edu", role = c("aut", "cre"))
+Description: This package provides several options for extracting variable label
+    and value label metadata from R files and writing them to a .txt data dictionary
+    file. There are specific functions for SPSS and Stata data read into R using
+    the foreign package, as well as a generic function that takes a list of variable
+    label and value label attributes.
+Depends:
+    R (>= 3.1.3)
+License: CC BY
+LazyData: true
+RoxygenNote: 5.0.1.9000
