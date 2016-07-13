@@ -4,22 +4,26 @@
 \alias{DataDictionary}
 \title{A Data Dictionary Function}
 \usage{
-DataDictionary(x, variable_labels, value_labels, file = "DataDictionary.txt")
+DataDictionary(x, variable_labels = attr(x, "variable.labels"),
+  value_labels = attr(x, "value.labels"), include.summary = FALSE,
+  file = "DataDictionary.txt")
 }
 \arguments{
 \item{x}{A dataframe}
 
-\item{variable_labels}{A vector or list of variable labels. Should be the same length as ncol(x) and the labels should appear in the same order.}
+\item{variable_labels}{A vector or list of variable labels. Should be the same length as ncol(x) and the labels should appear in the same order. Defaults to "variable.labels" attribute of x.}
 
-\item{value_labels}{A list of value labels.}
+\item{value_labels}{A list of value labels. Defaults to "value.labels" attribute of x.}
+
+\item{include.summary}{Logical. Should a summary of the each variable (output of summary()) be included in the data dictionary? Defaults to FALSE.}
 
 \item{file}{The file name and location to which the data dictionary should be written. Defaults to "DataDictionary.txt" in the current working directory.}
 }
 \description{
-This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. It writes these things to a data dictionary file that can function as a codebook.
+This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. If no variable or value label lists are specified, it assumes these are found in attr(x, "variable.labels") and attr(x, "value.labels"), respectively. It writes variable and value label metadata to a .txt data dictionary file that can function as a codebook. Optionally, you can choose to include summary information from each variable in the  data dictionary file with "include.summary=TRUE".
 }
 \examples{
-DataDictionary()
+iris #Create a data dictionary for iris dataset
 }
 \keyword{data}
 \keyword{dictionary}

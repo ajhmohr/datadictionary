@@ -1,0 +1,9 @@
+install.packages("devtools")#
+library(devtools)#
+devtools::install_github("klutometis/roxygen")#
+library(roxygen2)
+setwd("./datadictionary")
+getwd
+getwd()
+setwd("~/Documents/StatsAnalysis/Creating_R_Packages/R_packages_parentdirectory")
+setwd("./datadictionary")

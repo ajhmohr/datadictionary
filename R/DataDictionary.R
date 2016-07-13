@@ -1,47 +1,65 @@
 #' A Data Dictionary Function
 #'
-#' This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. It writes these things to a data dictionary file that can function as a codebook. 
+#' This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. If no variable or value label lists are specified, it assumes these are found in attr(x, "variable.labels") and attr(x, "value.labels"), respectively. It writes variable and value label metadata to a .txt data dictionary file that can function as a codebook. Optionally, you can choose to include summary information from each variable in the  data dictionary file with "include.summary=TRUE".
 #' @param x A dataframe
-#' @param variable_labels A vector or list of variable labels. Should be the same length as ncol(x) and the labels should appear in the same order. 
-#' @param value_labels A list of value labels. 
-#' @param file The file name and location to which the data dictionary should be written. Defaults to "DataDictionary.txt" in the current working directory. 
+#' @param variable_labels A vector or list of variable labels. Should be the same length as ncol(x) and the labels should appear in the same order. Defaults to "variable.labels" attribute of x.
+#' @param value_labels A list of value labels. Defaults to "value.labels" attribute of x.
+#' @param include.summary Logical. Should a summary of the each variable (output of summary()) be included in the data dictionary? Defaults to FALSE.
+#' @param file The file name and location to which the data dictionary should be written. Defaults to "DataDictionary.txt" in the current working directory.
 #' @keywords data dictionary
 #' @keywords metadata
 #' @export
-#' @examples
+#' @examples iris #Create a data dictionary for iris dataset
+#' @examples varlab = c("Length of Sepal in centimeters", "Width of Sepal in centimeters", "Length of petal in centimeters", "Width of Petal in centimeters", "Species of iris")
+#' @examples vallab = c(rep("", ncol(iris)))
+#' @examples DataDictionary(iris, variable_labels = varlab, value_labels=vallab, include.summary = TRUE)
 #' DataDictionary()
 
 
-DataDictionary <- function(x, variable_labels, value_labels, file="DataDictionary.txt") {
-  value_labels <- as.list(value_labels)
+DataDictionary <- function(x, variable_labels = attr(x, "variable.labels"), value_labels = attr(x, "value.labels"), include.summary=FALSE, file="DataDictionary.txt") {
+
   datatable <- as.data.frame(variable_labels)
-  
-  
+
   #initialize an empty tab-separated textfile to write the metadata to
   cat("\n", file=file, sep="\t")
-  
+
   #loop through each variable in mydata and print the variable name, variable labels,
-  #and value labels (if not blank) in the text file. 
+  #and value labels (if not blank) in the text file.
   for (i in 1:ncol(x)){
     if (value_labels[i] != "") {
       #write a line with the variable name tab-separated from the variable label
-      cat(names(x)[i], "\t", paste(datatable[i,]), file=file, append=TRUE)
-      #create a temporary object that combines the value label numbers with the 
+      cat(names(x)[i], "\t", paste(datatable[i,]), "\n\n", file=file, append=TRUE)
+
+      #create a temporary object that combines the value label numbers with the
       #value labels, with "=" in the middle of the two - each row contains a value label
       a <- paste(cbind(rev(value_labels[[i]]))[,1], "=", row.names(cbind(rev(value_labels[[i]]))))
       #start a new line in the text file
       cat("\n", file=file, append=TRUE)
-      #now, loop through each of the rows in "a" (each individual value label) and 
+      #now, loop through each of the rows in "a" (each individual value label) and
       #write it in a new indented line in the text file
-      for (j in 1:length(a)){
+      for (j in 1:length(a)) {
         cat("\t", a[j], "\n", file=file, append=TRUE)
       }
       #add a line to separate the next variable
       cat("\n", file=file, append=TRUE)
-    }
+      #if summary is TRUE, put in summary of data
+
+       if (include.summary==TRUE) {
+        capture.output(summary(x[,i]), file=file, append=T) } else{}
+
+      cat("\n", file=file, append=TRUE)
+
     #if the value labels are blank, just write a new line with the variable label
-    else {
+   } else {
       cat(names(x)[i], "\t", paste(datatable[i,]), "\n\n", file=file, append=TRUE)
-    }
-  } 
-}
+
+     if (include.summary==TRUE) {
+       capture.output(summary(x[,i]), file=file, append=T) } else{}
+
+     cat("\n", file=file, append=TRUE)
+  }
+}}
+
+
+
+
