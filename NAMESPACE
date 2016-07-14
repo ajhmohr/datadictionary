@@ -3,3 +3,4 @@
 export(DataDictionary)
 export(DictionarySPSS)
 export(DictionaryStata)
+export(QualtricsPreprocess)
