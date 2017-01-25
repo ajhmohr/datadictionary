@@ -14,7 +14,7 @@ DictionaryStata <- function(x, file="DataDictionary.txt") {
   attr(x, "value.labels") = list()
   for (i in 1:ncol(x)){
     if (attr(x, "val.labels")[i]!="") {
-      attr(x, "value.labels")[i] <- attr(x, "label.table")[which(names(attr(x, "label.table"))==attr(data, "val.labels")[i])]}
+      attr(x, "value.labels")[i] <- attr(x, "label.table")[which(names(attr(x, "label.table"))==attr(x, "val.labels")[i])]}
     else { attr(x, "value.labels")[i] <- ""}}
   
   
