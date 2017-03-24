@@ -23,9 +23,9 @@ DataDictionary(x, variable_labels = attr(x, "variable.labels"),
 This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. If no variable or value label lists are specified, it assumes these are found in attr(x, "variable.labels") and attr(x, "value.labels"), respectively. It writes variable and value label metadata to a .txt data dictionary file that can function as a codebook. Optionally, you can choose to include summary information from each variable in the  data dictionary file with "include.summary=TRUE".
 }
 \examples{
-iris #Create a data dictionary for iris dataset
+iris #Create a data dictionary for iris dataset; varlab = c("Length of Sepal in centimeters", "Width of Sepal in centimeters", "Length of petal in centimeters", "Width of Petal in centimeters", "Species of iris"); vallab = c(rep("", ncol(iris))); DataDictionary(iris, variable_labels = varlab, value_labels=vallab, include.summary = TRUE)
+DataDictionary()
 }
 \keyword{data}
 \keyword{dictionary}
 \keyword{metadata}
-

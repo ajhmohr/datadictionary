@@ -20,4 +20,3 @@ DictionaryStata()
 \keyword{data}
 \keyword{dictionary}
 \keyword{metadata}
-

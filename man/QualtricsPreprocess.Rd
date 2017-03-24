@@ -19,6 +19,5 @@ QualtricsPreprocess(x, remove.std.var = TRUE, remove.additional = "",
 \item{label.file}{File name for the label file. String; should end in ".txt". Defaults to "VariableLabels.txt" in working directory.}
 }
 \description{
-This function processes a Qualtrics data file that has been read into R (assumes a legacy View Results format). The first 10 variables automatically added by Qualtrics are renamed with their labels, labels are removed from the dataset and used to create a variable label file, a time taken variable is calculated based on the start and end times, and any identifying or otherwise unwanted variables are removed (specific variable names can be specified in function; see below). It writes a .csv file of the processed data and a .txt data dictionary of the variable labels to the working directory.
+This function processes a Qualtrics data file that has been read into R (assumes a legacy View Results format). The first 10 variables automatically added by Qualtrics are renamed with their labels, labels are removed from the dataset and used to create a variable label file, a time taken variable is calculated based on the start and end times, and any identifying or otherwise unwanted variables are removed (specific variable names can be specified in function; see below). It writes a comma-separated (.csv) file of the processed data and a tab-separated (.txt) data dictionary of the variable labels to the working directory.
 }
-

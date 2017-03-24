@@ -20,4 +20,3 @@ DictionarySPSS()
 \keyword{data}
 \keyword{dictionary}
 \keyword{metadata}
-

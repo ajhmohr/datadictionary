@@ -3,5 +3,4 @@
 export(DataDictionary)
 export(DictionarySPSS)
 export(DictionaryStata)
-export(QualtricsPreprocess)
-export(RandomID)
+export(write.Stata)
