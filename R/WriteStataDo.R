@@ -36,6 +36,7 @@ write.Stata <- function(df, codefile, datafile) {
       cat("label values", names(df)[i], paste(names(df)[i], "label", sep = "_"), "\n", file=codefile, append=T)
     }	
   }
+  cat("\n\n", "save", adQuote(paste(getwd(), gsub(".csv", ".dta", datafile), sep="/")), ", replace", "\n\n", file=codefile, append=T) 
   cat("Done")	
 }
 
