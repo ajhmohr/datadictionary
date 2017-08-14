@@ -16,7 +16,7 @@ write.Stata <- function(df, codefile, datafile) {
   adQuote <- function(x){paste("\"", x, "\"", sep = "")}
   #write out dataset 
   cat("Modifying dataset for compatibility with Stata...", "\n")
-  names(df) = gsub("\\.", "_", names(df))
+  names(df) = gsub("\\.|-", "_", names(df))
   
   df1 = apply(df, 2, as.character)
   df1[is.na(df1)] <- "."
