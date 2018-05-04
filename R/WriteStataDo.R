@@ -22,7 +22,7 @@ write.Stata <- function(df, codefile, datafile) {
   df1[is.na(df1)] <- "."
   
   cat("Writing Data file...", "\n")
-  write.table(df1, file = datafile, sep=",", eol="\r\n", row = FALSE)
+  write.table(df1, file = datafile, sep="\t", eol="\r\n", row = FALSE)
   
   cat("Writing Syntax file...", "\n")
   cat("insheet using", adQuote(paste(getwd(), datafile, sep="/")), ", case names", "\n\n", file=codefile) 
