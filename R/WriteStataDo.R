@@ -28,7 +28,7 @@ write.Stata <- function(df, codefile, datafile) {
   #set up internal object to collect text and speed up write
   tempcodefile <- textConnection("codetext", "w", encoding = "UTF-8")
   
-  cat("insheet using", adQuote(paste(getwd(), datafile, sep="/")), ", case names", "\n\n", file=tempcodefile) 
+  cat("import delimited using", adQuote(paste(getwd(), datafile, sep="/")), ", delim(\"\\t\") clear case(\"preserve\")", "\n\n", file=tempcodefile) 
   
   for (i in 1:ncol(df)) {
     if (attr(df, "variable.labels")[i] != "") {
@@ -39,7 +39,7 @@ write.Stata <- function(df, codefile, datafile) {
       cat("label values", names(df)[i], paste(names(df)[i], "label", sep = "_"), "\n", file=tempcodefile, append=T)
     }	
   }
-  cat("\n\n", "save", adQuote(paste(getwd(), gsub(".csv", ".dta", datafile), sep="/")), ", replace", "\n\n", file=tempcodefile, append=T) 
+  cat("\n\n", "save", adQuote(paste(getwd(), gsub(".csv|.tsv|.txt", ".dta", datafile), sep="/")), ", replace", "\n\n", file=tempcodefile, append=T) 
   
   close(tempcodefile)
   
