@@ -1,6 +1,6 @@
 #' A Data Dictionary Function
 #'
-#' This function creates a .txt data dictionary from a dataframe, list of variable labels, and list of value labels. If no variable or value label lists are specified, it assumes these are stored in line with either the foreign or haven packages. It writes variable and value label metadata to a .txt data dictionary file that can function as a codebook. Optionally, you can choose to include summary information from each variable in the  data dictionary file with "include.summary=TRUE".
+#' This function creates a .txt data dictionary from a dataframe read in from SPSS or Stata using foreign or haven; or a data frame with a list of variable labels, and list of value labels. If no variable or value label lists are specified, it assumes these are stored in line with either the foreign or haven packages. It writes variable and value label metadata to a .txt data dictionary file that can function as a codebook. Optionally, you can choose to include summary information from each variable in the  data dictionary file with "include.summary=TRUE".
 #' @param x A dataframe
 #' @param variable_labels A vector or list of variable labels. Should be the same length as ncol(x) and the labels should appear in the same order. Defaults to "variable.labels" attribute of x or var_label(x).
 #' @param value_labels A list of value labels. Defaults to "value.labels" attribute of x or val_labels(x)
@@ -16,51 +16,61 @@
 
 DataDictionary <- function(x, variable_labels = variable_labels, value_labels = value_labels, include.summary=FALSE, file="DataDictionary.txt") {
   
-  #foreign-style SPSS variable labels
-  if (!is.null(attr(x, "variable.labels"))) {
+  #If variables are not specified - use foreign or haven style labels from data object
+  if (missing(variable_labels)) {
+   
+     #foreign-style SPSS variable labels
+    if (!is.null(attr(x, "variable.labels"))) {
+      
+      variable_labels <- attr(x, "variable.labels")
+      
+    } 
     
-    variable_labels <- attr(x, "variable.labels")
-    
-  } 
-  
-  #foreign-style Stata variable labels
-  else if (!is.null(attr(x, "var.labels"))) {
+    #foreign-style Stata variable labels
+    else if (!is.null(attr(x, "var.labels"))) {
       
       variable_labels <- attr(x, "var.labels")
       
     } 
-  
-  #haven-style SPSS or Stata variable labels
-  else if (!is.null(unlist(sapply(x, attr, "label")))) {
+    
+    #haven-style SPSS or Stata variable labels
+    else if (!is.null(unlist(sapply(x, attr, "label")))) {
       
       variable_labels <- sapply(x, attr, "label")
       
     }
-    
-  
-  #foreign-style SPSS value labels
-  if (!is.null(unlist(sapply(x, attr, "value.labels")))) {
-    
-    value_labels <- sapply(x, attr, "value.labels")
-    
-  } 
-  
-  #foreign-style Stata value labels
-  else if (!is.null(attr(x, "label.table"))) {
-    
-    value_labels <- as.list(rep("", ncol(x)))
-    names(value_labels) <- names(x)
-    value_labels[which(names(value_labels) %in% names(attr(x, "label.table")))] <- attr(x, "label.table")
-    
   }
+  
+ 
+  #If value_labels are not specified, use foreign or haven style value_labels from the data object
+  if (missing(value_labels)) {
     
-  #haven-style SPSS or Stata variable labels
-   else if (!is.null(unlist(sapply(x, attr, "labels", exact=TRUE)))) {
+    #foreign-style SPSS value labels
+    if (!is.null(unlist(sapply(x, attr, "value.labels")))) {
+      
+      value_labels <- sapply(x, attr, "value.labels")
+      
+    } 
+    
+    #foreign-style Stata value labels
+    else if (!is.null(attr(x, "label.table"))) {
+      
+      value_labels <- as.list(rep("", ncol(x)))
+      names(value_labels) <- names(x)
+      value_labels[which(names(value_labels) %in% names(attr(x, "label.table")))] <- attr(x, "label.table")
+      
+    }
+    
+    #haven-style SPSS or Stata variable labels
+    else if (!is.null(unlist(sapply(x, attr, "labels", exact=TRUE)))) {
       
       value_labels <- sapply(x, attr, "labels", exact=TRUE)
       
     }
+  }
+    
   
+
   
   datatable <- as.data.frame(variable_labels)
 
