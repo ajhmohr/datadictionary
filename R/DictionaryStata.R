@@ -1,6 +1,6 @@
 #' A Stata Data Dictionary Function
 #'
-#' This function creates a .txt data dictionary from a Stata .dta read into R using the foreign package. It writes the variable labels and value labels stored as attributes within the R data object to an external file. 
+#' This function creates a .txt data dictionary from a Stata .dta read into R using the foreign package. It writes the variable labels and value labels stored as attributes within the R data object to an external file. PLEASE USE DataDictionary() for Stata data read in with the haven package. 
 #' @param x A dataframe read in using the "read.dta()" command from the foreign package. 
 #' @param file The file name and location to which the data dictionary should be written. Defaults to "DataDictionary.txt" in the current working directory. 
 #' @keywords data dictionary

@@ -1,6 +1,6 @@
 #' A SPSS Data Dictionary Function
 #'
-#' This function creates a .txt data dictionary from an SPSS .sav file read into R using the foreign package. It writes the variable labels and value labels stored as attributes within the R data object to an external file. 
+#' This function creates a .txt data dictionary from an SPSS .sav file read into R using the foreign package. It writes the variable labels and value labels stored as attributes within the R data object to an external file. PLEASE USE DataDictionary() for SPSS data read in using the haven package. 
 #' @param x A dataframe read in using the "read.spss()" command from the foreign package. Must have "to.data.frame=TRUE" and works best if "use.value.labels=FALSE"
 #' @param file The file name and location to which the data dictionary should be written. Defaults to "DataDictionary.txt" in the current working directory. 
 #' @keywords data dictionary
