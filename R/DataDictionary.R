@@ -13,6 +13,7 @@
 #' DataDictionary()
 
 
+
 DataDictionary <- function(x, variable_labels = variable_labels, value_labels = value_labels, include.summary=FALSE, file="DataDictionary.txt") {
   
   #foreign-style variable labels
