@@ -67,6 +67,13 @@ DataDictionary <- function(x, variable_labels = variable_labels, value_labels = 
       value_labels <- sapply(x, attr, "labels", exact=TRUE)
       
     }
+    
+    #no value labels
+    else {
+      
+      value_labels <- as.list(rep("", length=ncol(x)))
+    
+    }
   }
     
   
