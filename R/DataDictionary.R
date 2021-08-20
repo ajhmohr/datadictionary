@@ -36,7 +36,7 @@ DataDictionary <- function(x, variable_labels = variable_labels, value_labels = 
     #haven-style SPSS or Stata variable labels
     else if (!is.null(unlist(sapply(x, attr, "label")))) {
       
-      variable_labels <- sapply(x, attr, "label")
+      variable_labels <- sapply(x, attr, "label", exact=TRUE)
       
     }
   }
@@ -77,14 +77,16 @@ DataDictionary <- function(x, variable_labels = variable_labels, value_labels = 
   }
     
   
-
+  #replace any missing variable labels with blank ""
+  variable_labels <- lapply(variable_labels, function(x) ifelse(is.null(x), "", x))
   
-  datatable <- as.data.frame(variable_labels)
+  #as.matrix ensures it ends up as a single column 
+  datatable <- as.data.frame(as.matrix(variable_labels, ncol=1))
 
   #initialize an empty tab-separated textfile to write the metadata to
   cat("\n", file=file, sep="\t")
 
-  ## START HERE - CHECK STATA
+  
   #loop through each variable in mydata and print the variable name, variable labels,
   #and value labels (if not blank) in the text file.
   for (i in 1:ncol(x)){
